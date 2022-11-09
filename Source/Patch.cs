@@ -5,6 +5,7 @@ using System.Linq;
 using System.Reflection.Emit;
 using System.Reflection;
 using RimWorld;
+using RimWorld.Planet;
 using UnityEngine;
  
 namespace SimpleFxVapor
@@ -38,12 +39,24 @@ namespace SimpleFxVapor
             return codes.AsEnumerable();
         }
 
+        static World worldCache = null;
+        static TileTemperaturesComp compCache = null;
+		static FastRandom fastRandom = new FastRandom();
+
         static public void ColdGlow(IntVec3 c, float temperature, Map map)
         {
-            if (ModSettings_SimpleFxVapor.considerOutdoors && map.mapTemperature.OutdoorTemp < 0f) return;
-			float size = 1f;
-			FastRandom fastRandom = new FastRandom();
-            Room room = new Room();
+            
+            if (ModSettings_SimpleFxVapor.considerOutdoors)
+            {
+                if (worldCache == null) worldCache = Current.Game.World;
+                //Check if the world has changed (loaded a new save)
+                if (Current.Game.World != worldCache || compCache == null)
+                {
+                    worldCache = Current.Game.World;
+                    compCache = worldCache?.GetComponent<TileTemperaturesComp>();
+                }
+                else if (compCache.cache[map.info.parent.tileInt].cachedOutdoorTemp < 0f) return;
+            }
             if (temperature < 0f) 
 			{
                 FleckDef fleckDef;
@@ -53,9 +66,9 @@ namespace SimpleFxVapor
 				Vector3 vector = c.ToVector3Shifted();
 				if (!vector.ShouldSpawnMotesAt(map, true)) return;
 
-				vector += size * new Vector3(fastRandom.Next(1,50) / 100f, 0f, fastRandom.Next(1,50) / 100f);
+				vector += 1f * new Vector3(fastRandom.Next(1,50) / 100f, 0f, fastRandom.Next(1,50) / 100f);
 				
-				FleckCreationData dataStatic = FleckMaker.GetDataStatic(vector, map, fleckDef, fastRandom.Next(200,300) / 100f * size);
+				FleckCreationData dataStatic = FleckMaker.GetDataStatic(vector, map, fleckDef, fastRandom.Next(200,300) / 100f * 1f);
 				dataStatic.rotationRate = fastRandom.Next(-300,300) / 100f;
 				dataStatic.velocityAngle =  (float)fastRandom.Next(0,360);
 				dataStatic.velocitySpeed = 0.12f;

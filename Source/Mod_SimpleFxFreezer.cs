@@ -36,10 +36,10 @@ namespace SimpleFxVapor
 	{
 		public override void ExposeData()
 		{
-			Scribe_Values.Look<bool>(ref considerOutdoors, "considerOutdoors", true, false);
+			Scribe_Values.Look<bool>(ref considerOutdoors, "considerOutdoors", false, false);
 			base.ExposeData();
 		}
 
-		public static bool considerOutdoors = true;
+		public static bool considerOutdoors = false;
 	}
 }
