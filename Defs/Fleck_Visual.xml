@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+	<FleckDef ParentName="FleckBase_Thrown">
+		<defName>Owl_ColdGlow</defName>
+		<graphicData>
+			<texPath>Things/Mote/Owl_ColdVapor</texPath>
+			<shaderType>Mote</shaderType>
+		</graphicData>
+		<altitudeLayer>MoteOverhead</altitudeLayer>
+		<fadeInTime>1.9</fadeInTime>
+		<solidTime>0.5</solidTime>
+		<fadeOutTime>2.2</fadeOutTime>
+	</FleckDef>
+	<FleckDef ParentName="FleckBase_Thrown">
+		<defName>Owl_VeryColdGlow</defName>
+		<graphicData>
+			<texPath>Things/Mote/Owl_VeryColdVapor</texPath>
+			<shaderType>Mote</shaderType>
+		</graphicData>
+		<altitudeLayer>MoteOverhead</altitudeLayer>
+		<fadeInTime>2.6</fadeInTime>
+		<solidTime>1.5</solidTime>
+		<fadeOutTime>3.3</fadeOutTime>
+	</FleckDef>
+</Defs>

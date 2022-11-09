@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ModMetaData>
+	<name>Simple FX: Vapor</name>
+	<author>Owlchemist</author>
+	<packageId>Owlchemist.SimpleFX.Vapor</packageId>
+	<supportedVersions>
+		<li>1.4</li>
+	</supportedVersions>
+	<description>
+		A graphical mod which adds particle effects to freezing rooms, such as walk-in-freezers, to give a visual indication of its frigid temperature.
+	</description>
+	<modDependencies>
+		<li>
+			<packageId>brrainz.harmony</packageId>
+			<displayName>Harmony</displayName>
+			<steamWorkshopUrl>steam://url/CommunityFilePage/2009463077</steamWorkshopUrl>
+		</li>
+	</modDependencies>
+</ModMetaData>
