@@ -46,8 +46,6 @@ namespace SimpleFxVapor
 		
 		uint x, y, z, w;
 
-		#region Constructors
-
 		/// <summary>
 		/// Initialises a new instance using time dependent seed.
 		/// </summary>
@@ -56,20 +54,6 @@ namespace SimpleFxVapor
 			// Initialise using the system tick count.
 			Reinitialise((int)Environment.TickCount);
 		}
-
-		/// <summary>
-		/// Initialises a new instance using an int value as seed.
-		/// This constructor signature is provided to maintain compatibility with
-		/// System.Random
-		/// </summary>
-		public FastRandom(int seed)
-		{
-			Reinitialise(seed);
-		}
-
-		#endregion
-
-		#region Public Methods [Reinitialisation]
 
 		/// <summary>
 		/// Reinitialises using an int value as a seed.
@@ -84,26 +68,6 @@ namespace SimpleFxVapor
 			y = Y;
 			z = Z;
 			w = W;
-		}
-
-		#endregion
-
-		/// <summary>
-		/// Generates a random int over the range 0 to upperBound-1, and not including upperBound.
-		/// </summary>
-		/// <param name="upperBound"></param>
-		/// <returns></returns>
-		public int Next(int upperBound)
-		{
-			if(upperBound<0)
-				throw new ArgumentOutOfRangeException("upperBound", upperBound, "upperBound must be >=0");
-
-			uint t=(x^(x<<11));
-			x=y; y=z; z=w;
-
-			// The explicit int cast before the first multiplication gives better performance.
-			// See comments in NextDouble.
-			return (int)((REAL_UNIT_INT*(int)(0x7FFFFFFF&(w=(w^(w>>19))^(t^(t>>8)))))*upperBound);
 		}
 
 		public int Next(int lowerBound, int upperBound)

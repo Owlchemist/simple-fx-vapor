@@ -45,7 +45,6 @@ namespace SimpleFxVapor
 
         static public void ColdGlow(IntVec3 c, float temperature, Map map)
         {
-            
             if (ModSettings_SimpleFxVapor.considerOutdoors)
             {
                 if (worldCache == null) worldCache = Current.Game.World;
@@ -57,18 +56,12 @@ namespace SimpleFxVapor
                 }
                 else if (compCache.cache[map.info.parent.tileInt].cachedOutdoorTemp < 0f) return;
             }
-            if (temperature < 0f) 
+            if (temperature < 0f && map == Current.gameInt.CurrentMap && CameraDriver.lastViewRect.ExpandedBy(64).Contains(c))
 			{
-                FleckDef fleckDef;
-                if (temperature < -8f) fleckDef = ResourceBank.FleckDefOf.Owl_VeryColdGlow;
-                else fleckDef = ResourceBank.FleckDefOf.Owl_ColdGlow;
-                
-				Vector3 vector = c.ToVector3Shifted();
-				if (!vector.ShouldSpawnMotesAt(map, true)) return;
-
-				vector += 1f * new Vector3(fastRandom.Next(1,50) / 100f, 0f, fastRandom.Next(1,50) / 100f);
+                FleckDef fleckDef = temperature < -8f ? ResourceBank.FleckDefOf.Owl_VeryColdGlow : ResourceBank.FleckDefOf.Owl_ColdGlow;
 				
-				FleckCreationData dataStatic = FleckMaker.GetDataStatic(vector, map, fleckDef, fastRandom.Next(200,300) / 100f * 1f);
+				FleckCreationData dataStatic = FleckMaker.GetDataStatic(
+                    new Vector3(c.x + fastRandom.Next(1,50) / 100f, 10.54054f, c.z + fastRandom.Next(1,50) / 100f), map, fleckDef, fastRandom.Next(200,300) / 100f);
 				dataStatic.rotationRate = fastRandom.Next(-300,300) / 100f;
 				dataStatic.velocityAngle =  (float)fastRandom.Next(0,360);
 				dataStatic.velocitySpeed = 0.12f;
